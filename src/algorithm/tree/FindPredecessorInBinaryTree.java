@@ -8,7 +8,7 @@ package algorithm.tree;
 
 import ds.tree.TreeNode;
 
-public class FindPredecessor<K extends Comparable> {
+public class FindPredecessorInBinaryTree<K extends Comparable> {
 
     public TreeNode<K> findPredecessorOfGivenNode(TreeNode<K> root, TreeNode<K> x){
         if(root == null && x == null) {

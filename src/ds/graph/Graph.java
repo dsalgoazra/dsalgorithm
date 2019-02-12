@@ -5,16 +5,27 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * By default the created graph is directed
+ */
 public class Graph{
 
     private int[][] edgeList;
     private List<Edge> edges;
     private Map<String, Vertex> vertices;
+    private boolean isDirected;
 
     public Graph(){
+        this(true);
+    }
+
+    public Graph(boolean isDirected){
         this.edges = new ArrayList<>();
         this.vertices = new HashMap<>();
+        this.isDirected = isDirected;
     }
+
+
 
     /**
      * *       4        6
@@ -36,8 +47,12 @@ public class Graph{
      * }
      *
      */
-    public Graph(int[][] edgeList){
-        this();
+    public Graph(int[][] edgeList) {
+        this(edgeList, true);
+    }
+
+    public Graph(int[][] edgeList, boolean isDirected){
+        this(isDirected);
         this.edgeList = edgeList;
         if(edgeList == null || edgeList.length == 0) return;
         int m = edgeList.length;
@@ -53,8 +68,7 @@ public class Graph{
         }
     }
 
-
-    public void addEdge(String from, String to, int weight) {
+    public void addEdge(String from, String to, int weight ) {
         Vertex fromV = this.vertices.get(from);
         if(fromV == null) {
             fromV = new Vertex(from);
@@ -66,6 +80,11 @@ public class Graph{
             this.vertices.put(to, toV);
         }
         Edge e = new Edge(fromV, toV, weight);//TODO: check for duplicates
+        if(!this.isDirected) {
+            Edge eTo = new Edge(toV, fromV, weight);
+            toV.addEdge(eTo);
+            this.edges.add(eTo);
+        }
         fromV.addEdge(e);
         this.edges.add(e);
     }
@@ -112,6 +131,7 @@ public class Graph{
         private Vertex from;
         private Vertex to;
         private int weight;
+        private boolean visited;
 
         public Edge(Vertex from , Vertex to) {
             this.from = from;
@@ -147,6 +167,14 @@ public class Graph{
             equals &= !((e.getTo() == null && this.getTo() != null) || (e.getTo() != null && this.getTo() == null));
             equals = equals  && this.getFrom().equals(e.getFrom()) && this.getTo().equals(e.getTo());
             return equals;
+        }
+
+        public boolean isVisited() {
+            return visited;
+        }
+
+        public void setVisited(boolean visited) {
+            this.visited = visited;
         }
 
         public String toString(){

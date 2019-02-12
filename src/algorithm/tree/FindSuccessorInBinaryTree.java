@@ -7,7 +7,7 @@ package algorithm.tree;
 
 import ds.tree.TreeNode;
 
-public class FindSuccessor<K extends Comparable> {
+public class FindSuccessorInBinaryTree<K extends Comparable> {
 
     public TreeNode<K> findSuccessorForGivenNode(TreeNode<K> root, TreeNode<K> x){
         if(root == null && x == null) return null;
