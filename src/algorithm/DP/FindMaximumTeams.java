@@ -4,7 +4,7 @@
      There are N countries, each country has Ai players. You need to form teams of size K such that each player
      in the team is from a different country.  Given N and number of players from each country and size K.
      Find the maximum number of teams you can form.
-
+ * @author Azra Irshad Rabbani, dsalgoazra@gmail.com
  */
 
 package algorithm.DP;
@@ -50,8 +50,7 @@ public class FindMaximumTeams {
     }
 
     public static void main(String[] args) {
-        int[] countryPlayers = {3, 4, 5};
-        test(2, 4, 3,4,5);
+        test(2, 4, 3, 4, 5);
         test(2, 10, -3, 10, 10);
         test(1, 10, -3, 10, -5);
         test(2, 1, 1, 10, -5);

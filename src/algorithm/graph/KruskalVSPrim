@@ -1,0 +1,7 @@
+Kruskal's and Prim's algorithms both try to find a minimum spanning tree in an undirected and weighted graph
+
+Kruskal's time complexity is O(
+
+Prim's algorithm is significantly faster in the limit when you've got a really dense graph with many more edges than vertices
+Kruskal performs better in typical situations (sparse graphs)
+

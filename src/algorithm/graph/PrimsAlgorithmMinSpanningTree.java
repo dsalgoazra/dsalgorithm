@@ -4,6 +4,7 @@
  * This is lazy version, using priority queue and adjacency list
  * It calculates the cost and construct the MST as well.
  * Time Complexity O(ElogE)
+ *
  * @author Azra Irshad Rabbani, dsalgoazra@gmail.com
  */
 
@@ -60,7 +61,11 @@ public class PrimsAlgorithmMinSpanningTree {
 
         };
         PrimsAlgorithmMinSpanningTree p = new PrimsAlgorithmMinSpanningTree();
-        p.primMinimumSpanningCost(new Graph(edges, false));
+        List<Graph.Edge> mst = p.primMinimumSpanningCost(new Graph(edges, false));
+        System.out.println("Miniumum Spanning Tree ");
+        for(int i = 0; i < mst.size(); i ++){
+            System.out.println(mst.get(i).toString());
+        }
     }
 
 }
