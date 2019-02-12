@@ -1,12 +1,18 @@
+/**
+ *
+ * This is my implementation of Dijkstra Algorithm using priority queue to find a shortest path from each vertex in the
+ * graph.
+ *
+ * @author Azra Irshad Rabbani, dsalgoazra@gmail.com
+ */
+
 package algorithm.graph;
 
 import ds.graph.Graph;
 
 import java.util.*;
 
-/**
- * Finding shortest path
- */
+
 public class DijkstraAlgorithm {
 
     public Map<String, List<Graph.Vertex>> findShortestPathsFromEachVertexInTheGraph(Graph g){

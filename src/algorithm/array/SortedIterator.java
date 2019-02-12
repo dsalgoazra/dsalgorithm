@@ -1,40 +1,67 @@
+/**
+ * This is my lazy implementation of a question found at Career cup https://www.careercup.com/question?id=5647438614888448
+ * It is fail safe, and it will not reflect any changes done to the array after creating the SortedIterator.
+ *
+ * Q: Given a list of sorted lists each of size maximum size M, implement an iterator (maintain the order of items as in
+ * the original list of lists).
+ *
+ * @author Azra Irshad Rabbani, dsalgoazra@gmail.com
+ */
 package algorithm.array;
 
-
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 import java.util.PriorityQueue;
 
-/**
- * Given a list of sorted lists each of size maximum size M, implement an iterator (maintain the order of items as in
- * the original list of lists).
-
- I had a solution requiring extra space using minHeap; However, the interviewer was looking for a constant space solution.
-
- */
-public class SortedIterator<K extends Comparable>  implements Iterator<K>{
-
-    private List<K> sortedList;
+public class SortedIterator<K extends Comparable>  implements Iterator<K> {
     private int currentIdx = 0;
+    private K[][] sortedArrays;
+    private int size = 0;
+    private PriorityQueue<SortedNode> q = new PriorityQueue<SortedNode>((a, b) -> {return a.compareTo(b);});
 
     public SortedIterator(K[][] sortedArrays){
-        iterateListOfLists(sortedArrays);
+        this.sortedArrays = sortedArrays;
+        initIterator();
     }
 
     @Override
     public boolean hasNext() {
-        return (currentIdx  < sortedList.size());
+        return (currentIdx  < size);
     }
 
     @Override
     public K next() {
         K item = null;
-        if(currentIdx < sortedList.size()){
-            item = sortedList.get(currentIdx);
+        if(this.sortedArrays != null && hasNext()) {
+            SortedNode next = q.poll();
+            item = next.val;
+            int arrNum = next.arrNum;
+            if (next.nextIdx < next.size && this.sortedArrays[arrNum][next.nextIdx] != null) {
+                q.offer(new SortedNode(arrNum, this.sortedArrays[arrNum][next.nextIdx], next.nextIdx + 1, next.size));
+            }
             currentIdx++;
         }
         return item;
+    }
+
+    private void initIterator() {
+        if(this.sortedArrays != null) {
+            int n = this.sortedArrays.length;
+            for (int i = 0; i < n; i++) { //O(n)
+                int m = this.sortedArrays[i].length;
+                if (m > 0 && this.sortedArrays[i][0] != null) {
+                    q.offer(new SortedNode(i, this.sortedArrays[i][0], 1, m));
+                }
+                size += m;
+            }
+        }
+    }
+
+    public static void main(String[] args) {
+        Integer[][] arr = {{1 ,2, 8}, {6,9,10}, {1, 4, 5 , 12 }};
+        SortedIterator<Integer> it = new SortedIterator(arr);
+        while(it.hasNext()) {
+            System.out.println(it.next()+"");
+        }
     }
 
     private class SortedNode implements Comparable<SortedNode>{
@@ -56,37 +83,6 @@ public class SortedIterator<K extends Comparable>  implements Iterator<K>{
             if(n.val == null && this.val != null) return -1;
             if(n.val != null && this.val == null) return 1;
             return this.val.compareTo(n.val);
-        }
-    }
-
-    private List<K> iterateListOfLists(K[][] arr){
-        PriorityQueue<SortedNode> q = new PriorityQueue<SortedNode>((a, b) -> {return a.compareTo(b);});
-        int n = arr.length;
-        int size = 0;
-        for(int i=0; i < n; i++){ //O(n)
-            int m = arr[i].length;
-            if(m > 0 && arr[i][0] != null) {
-                q.offer(new SortedNode(i,arr[i][0],1, m));
-            }
-            size += m;
-        }
-        sortedList = new ArrayList<>(size);
-        while(!q.isEmpty()) { //O(n + m)
-            SortedNode next = q.poll();
-            sortedList.add(next.val);
-            int arrNum = next.arrNum;
-            if(next.nextIdx < next.size && arr[arrNum][next.nextIdx] != null) {
-                q.offer(new SortedNode(arrNum, arr[arrNum][next.nextIdx],next.nextIdx+1, next.size ));
-            }
-        }
-        return sortedList;
-    }
-
-    public static void main(String[] args) {
-        Integer[][] arr = {{1 ,2, 8}, {6,9,10}, {1, 4, 5 , 12 }};
-        SortedIterator<Integer> it = new SortedIterator(arr);
-        while(it.hasNext()) {
-            System.out.println(it.next()+"");
         }
     }
 }

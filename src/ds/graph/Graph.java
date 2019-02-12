@@ -7,6 +7,7 @@ import java.util.Map;
 
 public class Graph{
 
+    private int[][] edgeList;
     private List<Edge> edges;
     private Map<String, Vertex> vertices;
 
@@ -37,6 +38,7 @@ public class Graph{
      */
     public Graph(int[][] edgeList){
         this();
+        this.edgeList = edgeList;
         if(edgeList == null || edgeList.length == 0) return;
         int m = edgeList.length;
         int n = edgeList[0].length;
@@ -50,6 +52,7 @@ public class Graph{
             addEdge(from, to, weight);
         }
     }
+
 
     public void addEdge(String from, String to, int weight) {
         Vertex fromV = this.vertices.get(from);

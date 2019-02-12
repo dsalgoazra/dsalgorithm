@@ -1,3 +1,9 @@
+/**
+ *
+ * This is my implementation of detecting a cycle in a directed graph
+ *
+ * @author Azra Irshad Rabbani, dsalgoazra@gmail.com
+ */
 package algorithm.graph;
 
 import ds.graph.Graph;

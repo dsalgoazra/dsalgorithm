@@ -1,17 +1,22 @@
+/**
+ *
+ * This is my implementation of a question found at https://www.careercup.com/question?id=5756619099471872
+     Given 2 trees T1 & T2 (both can have > 2 childs), write an algorithm to find if T2 is a subtree of T1.
+     Follow up question, for any branch in T1
+     a->b->c->d
+     the following is a valid branch in tree T2(i.e. the isSubTree() algorithm mush evaluate to true in below circumstances)
+     a->d
+     a->c->d
+     c->d
+
+ * @author Azra Irshad Rabbani, dsalgoazra@gmail.com
+ */
+
 package algorithm.tree;
 
 import java.util.*;
 
-/**
- * Following Question was found on Career cup:
- Given 2 trees T1 & T2 (both can have > 2 childs), write an algorithm to find if T2 is a subtree of T1.
- Follow up question, for any branch in T1
- a->b->c->d
- the following is a valid branch in tree T2(i.e. the isSubTree() algorithm mush evaluate to true in below circumstances)
- a->d
- a->c->d
- c->d
- */
+
 public class CheckForSubTree<K extends Comparable> {
     private static class MultiChildTreeNode<K> {
         List<MultiChildTreeNode> children;
