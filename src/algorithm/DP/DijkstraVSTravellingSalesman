@@ -1,0 +1,5 @@
+TSP requires one to find the simple cycle covering every node in the graph with the smallest weight
+ (alternatively, the Hamilton cycle with the least weight).
+
+TSP solution required its answer to be a cycle
+TSP will reapeat a node in its path while a shortest path will not unless source an destination are same

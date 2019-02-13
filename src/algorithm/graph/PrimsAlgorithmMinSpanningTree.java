@@ -3,6 +3,7 @@
  * Prim's algorithm works on undirected graph.
  * This is lazy version, using priority queue and adjacency list
  * It calculates the cost and construct the MST as well.
+ *
  * Time Complexity O(ElogE)
  *
  * @author Azra Irshad Rabbani, dsalgoazra@gmail.com

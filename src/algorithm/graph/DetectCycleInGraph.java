@@ -13,7 +13,7 @@ import java.util.*;
 /**
  * Given a directed graph and a node , find the shortest cycle in a graph with given node .
  */
-public class DetectSmallestCycleInGraph {
+public class DetectCycleInGraph {
     private int shortestCycleSize = Integer.MAX_VALUE;
     private Graph.Vertex[] shortestCycle;
 
@@ -33,8 +33,11 @@ public class DetectSmallestCycleInGraph {
        return shortestCycle;
     }
 
+    public boolean hasCycle(Graph.Vertex source) {
+        return hasCycleDirectedGraph(source, new Stack<Graph.Vertex>());
+    }
 
-    boolean hasCycleDirectedGraph(Graph.Vertex source,  Stack<Graph.Vertex> adjVertex) {
+    private boolean hasCycleDirectedGraph(Graph.Vertex source,  Stack<Graph.Vertex> adjVertex) {
         if(source.isVisited()) return false;
         source.setVisited(true);
         adjVertex.push(source);
@@ -65,7 +68,7 @@ public class DetectSmallestCycleInGraph {
 
         };
         Graph g = new Graph(edges);
-        DetectSmallestCycleInGraph da = new DetectSmallestCycleInGraph();
+        DetectCycleInGraph da = new DetectCycleInGraph();
         Graph.Vertex[] cycle = da.findSmallestCycleDirectedGraph(g);
         System.out.println("\n Shortest cycle : ");
         for (Graph.Vertex v : cycle) {
