@@ -1,7 +1,7 @@
 /**
  *
  * This is my implementation of detecting a cycle in a directed graph
- *
+ * Time complexity is O(V + E)
  * @author Azra Irshad Rabbani, dsalgoazra@gmail.com
  */
 package algorithm.graph;
@@ -13,13 +13,15 @@ import java.util.*;
 /**
  * Given a directed graph and a node , find the shortest cycle in a graph with given node .
  */
-public class DetectCycleInGraph {
+public class TarjansCycleDetectionForStronglyConnectedGraph {
     private int shortestCycleSize = Integer.MAX_VALUE;
+    private int longestCycleSize = Integer.MIN_VALUE;
     private Graph.Vertex[] shortestCycle;
+    private Graph.Vertex[] longestCycle;
 
-    Graph.Vertex[] findSmallestCycleDirectedGraph(Graph g) {
+    Graph.Vertex[] findSmallestCycle(Graph g) {
        for(Graph.Vertex v :g.getVertices()) {//O(V)
-           Stack<Graph.Vertex> vertexStack = new Stack<>();
+           ArrayDeque<Graph.Vertex> vertexStack = new ArrayDeque<>();
            v.setVisited(false);//marking it unvisited so it can be traversed
            boolean hasCycle = hasCycleDirectedGraph(v, vertexStack);
            if(hasCycle) {
@@ -33,11 +35,32 @@ public class DetectCycleInGraph {
        return shortestCycle;
     }
 
-    public boolean hasCycle(Graph.Vertex source) {
-        return hasCycleDirectedGraph(source, new Stack<Graph.Vertex>());
+
+    Graph.Vertex[] findLongestCycle(Graph g) {
+        for(Graph.Vertex v :g.getVertices()) {//O(V)
+            ArrayDeque<Graph.Vertex> vertexStack = new ArrayDeque<>();
+            v.setVisited(false);//marking it unvisited so it can be traversed
+            boolean hasCycle = hasCycleDirectedGraph(v, vertexStack);
+            if(hasCycle) {
+                if(vertexStack.size() > longestCycleSize){
+                    longestCycleSize = vertexStack.size();
+                    longestCycle = new Graph.Vertex[longestCycleSize];
+                    vertexStack.toArray(longestCycle);
+                }
+            }
+        }
+        return shortestCycle;
     }
 
-    private boolean hasCycleDirectedGraph(Graph.Vertex source,  Stack<Graph.Vertex> adjVertex) {
+
+    public boolean hasCycle(Graph.Vertex source) {
+        boolean hasCycle =  hasCycleDirectedGraph(source, new ArrayDeque<Graph.Vertex>());
+        source.reset();
+        return hasCycle;
+    }
+
+    //O(V + E)
+    private boolean hasCycleDirectedGraph(Graph.Vertex source,  ArrayDeque<Graph.Vertex> adjVertex) {
         if(source.isVisited()) return false;
         source.setVisited(true);
         adjVertex.push(source);
@@ -68,9 +91,15 @@ public class DetectCycleInGraph {
 
         };
         Graph g = new Graph(edges);
-        DetectCycleInGraph da = new DetectCycleInGraph();
-        Graph.Vertex[] cycle = da.findSmallestCycleDirectedGraph(g);
+        TarjansCycleDetectionForStronglyConnectedGraph da = new TarjansCycleDetectionForStronglyConnectedGraph();
+        Graph.Vertex[] cycle = da.findSmallestCycle(g);
         System.out.println("\n Shortest cycle : ");
+        for (Graph.Vertex v : cycle) {
+            System.out.print(v.getId() + " -> ");
+        }
+        g = new Graph(edges);
+        cycle = da.findLongestCycle(g);
+        System.out.println("\n Longest cycle : ");
         for (Graph.Vertex v : cycle) {
             System.out.print(v.getId() + " -> ");
         }

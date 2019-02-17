@@ -24,11 +24,13 @@ Tree
 4) Find Successor of a given node in a binary tree
 
 
-
-
 String
 1) Longest common prefix using Manber and Mayer Algorithm
 
 
 Dynamic Programming
 1) Find maximum Teams for the given players from different country
+
+
+Linked List
+1) IsPalindromicLinkedList

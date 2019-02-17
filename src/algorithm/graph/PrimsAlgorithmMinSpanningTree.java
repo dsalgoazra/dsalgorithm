@@ -29,7 +29,7 @@ public class PrimsAlgorithmMinSpanningTree {
         }
         edges.get(0).getFrom().setVisited(true);
         int cost = 0;
-        while(minSpanningTreeNodes.size() < g.getVertices().size() && !pq.isEmpty()){
+        while(minSpanningTreeNodes.size() <= g.getVertices().size() && !pq.isEmpty()){
             Graph.Edge min = pq.poll(); //O(ElogE)
             Graph.Vertex minTo = min.getTo();
             if(!minTo.isVisited()) {

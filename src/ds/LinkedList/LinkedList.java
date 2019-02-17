@@ -31,7 +31,7 @@ public class LinkedList<K extends Comparable> {
     public boolean equals(Object that) {
         if(that == null) return false;
         if(that instanceof LinkedList) {
-            
+
         }
         return false;
     }

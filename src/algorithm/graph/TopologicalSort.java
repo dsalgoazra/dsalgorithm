@@ -27,7 +27,7 @@ public class TopologicalSort {
         Stack<Graph.Vertex> s = new Stack<>();
         Graph.Vertex source = g.getVertices().get(0);
         s.push(source);
-        DetectCycleInGraph d = new DetectCycleInGraph();
+        TarjansCycleDetectionForStronglyConnectedGraph d = new TarjansCycleDetectionForStronglyConnectedGraph();
         if(d.hasCycle(source)) {
             System.out.println("Graph has cycle cannot do topological sort.");
             return null;
